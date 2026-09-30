@@ -118,7 +118,15 @@ const createTask = (req, res) => {
 };
 
 const getTasks = (req, res) => {
-  res.status(200).json(tasks);
+  const { completed } = req.query;
+  let filteredTasks = tasks;
+
+  if (completed !== undefined) {
+    const completedBool = completed === "true";
+    filteredTasks = tasks.filter((task) => task.completed === completedBool);
+  }
+
+  res.status(200).json(filteredTasks);
 };
 
 const getTaskById = (req, res) => {
