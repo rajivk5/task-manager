@@ -1,0 +1,315 @@
+# Task Manager API
+
+A simple REST API for managing tasks using **Node.js**, **Express.js**, and a JSON file for data storage.
+
+## Features
+
+* Create a new task
+* Get all tasks
+* Get a task by ID
+* Update a task
+* Delete a task
+* Input validation
+* Proper HTTP status codes
+* JSON file-based data persistence
+
+## Tech Stack
+
+* Node.js
+* Express.js
+* JavaScript
+* JSON
+* Tap
+* Supertest
+
+## Project Structure
+
+```text
+task-manager/
+├── app.js
+├── task.json
+├── package.json
+├── package-lock.json
+├── controllers/
+│   └── taskController.js
+├── routers/
+│   └── taskRouter.js
+└── test/
+    └── server.test.js
+```
+
+## Installation
+
+Clone the repository and install dependencies:
+
+```bash
+npm install
+```
+
+## Run the Application
+
+Start the server:
+
+```bash
+npm start
+```
+
+The API will run on:
+
+```text
+http://localhost:3000
+```
+
+## Run Tests
+
+Run the test suite using:
+
+```bash
+npm run test
+```
+
+## API Endpoints
+
+### 1. Get All Tasks
+
+```http
+GET /tasks
+```
+
+Returns all tasks.
+
+**Response: `200 OK`**
+
+```json
+[
+  {
+    "id": 1,
+    "title": "Set up environment",
+    "description": "Install Node.js, npm, and git",
+    "completed": true
+  }
+]
+```
+
+---
+
+### 2. Get Task By ID
+
+```http
+GET /tasks/:id
+```
+
+Example:
+
+```http
+GET /tasks/1
+```
+
+**Response: `200 OK`**
+
+```json
+{
+  "id": 1,
+  "title": "Set up environment",
+  "description": "Install Node.js, npm, and git",
+  "completed": true
+}
+```
+
+If the task does not exist:
+
+**Response: `404 Not Found`**
+
+```json
+{
+  "error": "Task not found"
+}
+```
+
+---
+
+### 3. Create a Task
+
+```http
+POST /tasks
+```
+
+**Request Body:**
+
+```json
+{
+  "title": "Learn Express",
+  "description": "Practice Express.js routing and controllers",
+  "completed": false
+}
+```
+
+**Response: `201 Created`**
+
+```json
+{
+  "id": 16,
+  "title": "Learn Express",
+  "description": "Practice Express.js routing and controllers",
+  "completed": false
+}
+```
+
+The following fields are required:
+
+* `title` — string
+* `description` — string
+* `completed` — boolean
+
+Invalid input returns:
+
+**Response: `400 Bad Request`**
+
+```json
+{
+  "error": "Invalid input data"
+}
+```
+
+---
+
+### 4. Update a Task
+
+```http
+PUT /tasks/:id
+```
+
+Example:
+
+```http
+PUT /tasks/1
+```
+
+**Request Body:**
+
+```json
+{
+  "title": "Learn Node.js",
+  "description": "Learn Node.js and Express.js",
+  "completed": true
+}
+```
+
+**Response: `200 OK`**
+
+The updated task is returned.
+
+If the task does not exist:
+
+**Response: `404 Not Found`**
+
+If invalid data is provided:
+
+**Response: `400 Bad Request`**
+
+---
+
+### 5. Delete a Task
+
+```http
+DELETE /tasks/:id
+```
+
+Example:
+
+```http
+DELETE /tasks/1
+```
+
+**Response: `200 OK`**
+
+```json
+{
+  "message": "Task deleted successfully"
+}
+```
+
+If the task does not exist:
+
+**Response: `404 Not Found`**
+
+```json
+{
+  "error": "Task not found"
+}
+```
+
+## HTTP Status Codes
+
+| Status | Meaning                   |
+| ------ | ------------------------- |
+| `200`  | Request successful        |
+| `201`  | Task successfully created |
+| `400`  | Invalid request data      |
+| `404`  | Task not found            |
+| `500`  | Internal server error     |
+
+## Data Storage
+
+Tasks are stored in `task.json`.
+
+Example:
+
+```json
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Set up environment",
+      "description": "Install Node.js, npm, and git",
+      "completed": true
+    }
+  ]
+}
+```
+
+The API reads and updates this file when tasks are created, updated, or deleted.
+
+## Architecture
+
+The application follows a simple separation of responsibilities:
+
+```text
+Request
+   ↓
+app.js
+   ↓
+taskRouter.js
+   ↓
+taskController.js
+   ↓
+task.json
+```
+
+* **app.js** — configures Express and mounts the router.
+* **taskRouter.js** — defines API routes.
+* **taskController.js** — contains task-related business logic.
+* **task.json** — stores task data.
+
+## Testing
+
+The project includes automated API tests using **Tap** and **Supertest**.
+
+Tests cover:
+
+* Creating tasks
+* Validating task input
+* Fetching all tasks
+* Fetching a task by ID
+* Handling non-existent tasks
+* Updating tasks
+* Validating update data
+* Deleting tasks
+
+Run:
+
+```bash
+npm run test
+```
+
+All tests should pass before submitting the assignment.

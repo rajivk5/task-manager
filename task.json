@@ -2,8 +2,8 @@
   "tasks": [
     {
       "id": 1,
-      "title": "Set up environment",
-      "description": "Install Node.js, npm, and git",
+      "title": "Updated Task",
+      "description": "Updated Task Description",
       "completed": true
     },
     {
@@ -88,6 +88,24 @@
       "id": 15,
       "title": "Install jsonwebtoken",
       "description": "Install jsonwebtoken",
+      "completed": false
+    },
+    {
+      "id": 16,
+      "title": "New Task",
+      "description": "New Task Description",
+      "completed": false
+    },
+    {
+      "id": 17,
+      "title": "New Task",
+      "description": "New Task Description",
+      "completed": false
+    },
+    {
+      "id": 18,
+      "title": "New Task",
+      "description": "New Task Description",
       "completed": false
     }
   ]
